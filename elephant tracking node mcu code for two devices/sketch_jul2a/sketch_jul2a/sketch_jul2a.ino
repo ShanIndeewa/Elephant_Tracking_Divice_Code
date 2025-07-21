@@ -6,8 +6,8 @@
 #include <NTPClient.h>
 
 // === WiFi & Firebase Config ===
-#define WIFI_SSID "Suraj"
-#define WIFI_PASSWORD "11114444"
+#define WIFI_SSID "TCL20Y"
+#define WIFI_PASSWORD "F55BuIvV"
 #define FIREBASE_URL "https://elephant-tracker-44677-default-rtdb.firebaseio.com/"
 Firebase firebase(FIREBASE_URL);
 
@@ -51,6 +51,7 @@ void setup() {
   timeClient.begin();
   timeClient.update();
 
+  // Define firebase path
   firebase.setString("/elephants/" + String(DEVICE_ID) + "/id", DEVICE_ID);
   Serial.println("Firebase initialized");
 }
