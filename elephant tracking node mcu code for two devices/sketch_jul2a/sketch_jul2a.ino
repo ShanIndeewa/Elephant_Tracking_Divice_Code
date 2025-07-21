@@ -6,8 +6,8 @@
 #include <NTPClient.h>
 
 // === WiFi & Firebase Config ===
-#define WIFI_SSID "Slt fiber 36098"
-#define WIFI_PASSWORD "Siak36098"
+#define WIFI_SSID "TCL20Y"
+#define WIFI_PASSWORD "F55BuIvV"
 #define FIREBASE_URL "https://elephant-tracker-44677-default-rtdb.firebaseio.com/"
 Firebase firebase(FIREBASE_URL);
 
@@ -19,7 +19,6 @@ static const int TXPin = 5;  // NodeMCU D1 (GPIO5)
 #define DEVICE_ID "E01"
 
 // -- GPS Baud Rate --
-// The default baud rate for most NEO-M8N modules is 9600
 static const uint32_t GPSBaud = 9600;
 
 TinyGPSPlus gps;
@@ -32,7 +31,7 @@ WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", 19800, 60000); // UTC+5:30
 
 void setup() {
-  Serial.begin(9600);         // For Serial Monitor
+  Serial.begin(9600);
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to WiFi");
@@ -52,6 +51,7 @@ void setup() {
   timeClient.begin();
   timeClient.update();
 
+  //Define the path for firebase realtime database
   firebase.setString("/elephants/" + String(DEVICE_ID) + "/id", DEVICE_ID);
   Serial.println("Firebase initialized");
 }
@@ -65,7 +65,7 @@ void loop() {
     // If no GPS data is received for 5 seconds, print a message
   if (millis() > 5000 && gps.charsProcessed() < 10) {
     Serial.println("No GPS data detected: check wiring or antenna placement.");
-    while(true); // Halt the program
+    while(true);
   }
   
 
